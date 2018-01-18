@@ -18,10 +18,6 @@ function setLogIn(token) {
   };
 }
 
-function setLogOut() {
-  return { type: LOG_OUT };
-}
-
 function setUser(user) {
   return {
     type: SET_USER,
@@ -29,10 +25,14 @@ function setUser(user) {
   };
 }
 
+function logOut() {
+  return { type: LOG_OUT };
+}
+
 // API Actions
 function login(username, password) {
   return dispatch => {
-    fetch(`${API_URL}/rest-auth/login/`, {
+    return fetch(`${API_URL}/rest-auth/login/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -44,11 +44,12 @@ function login(username, password) {
     })
       .then(response => response.json())
       .then(json => {
-        if (json.token) {
+        if (json.user && json.token) {
           dispatch(setLogIn(json.token));
-        }
-        if (json.user) {
           dispatch(setUser(json.user));
+          return true;
+        } else {
+          return false;
         }
       });
   };
