@@ -12,11 +12,7 @@ class AppContainer extends Component {
     return (
       <View style={styles.container}>
         <StatusBar hidden={false} />
-        {isLoggedIn ? (
-          <Text>You are logged in</Text>
-        ) : (
-          <LoggedOutNavigation />
-        )}
+        {isLoggedIn ? <Text>You are logged in</Text> : <LoggedOutNavigation />}
       </View>
     );
   }
@@ -25,9 +21,7 @@ class AppContainer extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
+    backgroundColor: "#fff"
   }
 });
 
