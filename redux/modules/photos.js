@@ -17,11 +17,8 @@ function setFeed(feed) {
   };
 }
 
-function setSearch(feed) {
-  return {
-    type: SET_SEARCH,
-    search
-  };
+function setSearch(search) {
+  return { type: SET_SEARCH, search };
 }
 
 // API Actions
@@ -48,7 +45,7 @@ function getFeed() {
 function getSearch() {
   return (dispatch, getState) => {
     const { user: { token } } = getState();
-    fetch(`${API_URL}/search/`, {
+    fetch(`${API_URL}/images/search/`, {
       headers: {
         Authorization: `JWT ${token}`
       }
@@ -61,6 +58,46 @@ function getSearch() {
         }
       })
       .then(json => dispatch(setSearch(json)));
+  };
+}
+
+function likePhoto(photoId) {
+  return (dispatch, getState) => {
+    const { user: { token } } = getState();
+    return fetch(`${API_URL}/images/${photoId}/likes/`, {
+      method: "POST",
+      headers: {
+        Authorization: `JWT ${token}`
+      }
+    }).then(response => {
+      if (response.status === 401) {
+        dispatch(userActions.logOut());
+      } else if (response.ok) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  };
+}
+
+function unlikePhoto(photoId) {
+  return (dispatch, getState) => {
+    const { user: { token } } = getState();
+    return fetch(`${API_URL}/images/${photoId}/unlikes/`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `JWT ${token}`
+      }
+    }).then(response => {
+      if (response.status === 401) {
+        dispatch(userActions.logOut());
+      } else if (response.ok) {
+        return true;
+      } else {
+        return false;
+      }
+    });
   };
 }
 
@@ -103,7 +140,9 @@ function applySetSearch(state, action) {
 
 const actionCreators = {
   getFeed,
-  getSearch
+  getSearch,
+  likePhoto,
+  unlikePhoto
 };
 
 export { actionCreators };
