@@ -1,6 +1,18 @@
-import React from "react";
-import { View, Text } from "react-native";
+import { connect } from "react-redux";
+import Container from "./container";
+import { actionCreators as userActions } from "../../redux/modules/user";
 
-const NotificationScreen = props => <Text>Notification</Text>;
+const mapStateToProps = (state, ownProps) => {
+  const { user: { notifications } } = state;
+  return { notifications };
+};
 
-export default NotificationScreen;
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    getNotifications: () => {
+      dispatch(userActions.getNotifications());
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Container);
