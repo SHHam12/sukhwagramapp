@@ -1,2 +1,2 @@
-export const API_URL = "https://7e9266a1.ngrok.io";
+export const API_URL = "http://sukhwagram.us-east-1.elasticbeanstalk.com";
 export const FB_APP_ID = "138999863433141";

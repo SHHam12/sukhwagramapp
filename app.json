@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "sukhwagramapp",
-    "description": "This project is really great.",
+    "description": "Making a clone of Instagram with React / React Native / Django!",
     "slug": "sukhwagramapp",
     "privacy": "public",
     "sdkVersion": "24.0.0",
